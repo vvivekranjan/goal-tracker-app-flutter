@@ -67,6 +67,7 @@ flutter:
     - assets/pin_your_goals.svg
     - assets/schedule.svg
     - assets/visualize_success.svg
+    - assets/login.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
