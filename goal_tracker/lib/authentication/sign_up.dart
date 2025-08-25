@@ -3,10 +3,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:goal_tracker/authentication/sign_up.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class SignUp extends StatelessWidget {
+  const SignUp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,19 +35,19 @@ class Login extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: SvgPicture.asset(
-                      'assets/login.svg',
+                      'assets/sign_up.svg',
                       height: 200,
                       fit: BoxFit.contain,
                     ),
                   ),
-                  LoginForm(),
+                  SignUpForm(),
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Not having an account?',
+                          'Already having an account?',
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.white,
@@ -56,15 +55,10 @@ class Login extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SignUp(),
-                              ),
-                            );
+                            Navigator.pop(context);
                           },
                           child: Text(
-                            'Register here',
+                            'Login here',
                             style: TextStyle(
                               fontSize: 18,
                               color: Color(0xFF0083D4),
@@ -84,36 +78,50 @@ class Login extends StatelessWidget {
   }
 }
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<SignUpForm> createState() => _SignUpFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _SignUpFormState extends State<SignUpForm> {
 
+  final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
+  final _dobController = TextEditingController();
   final _passwordController = TextEditingController();
-  late bool _passwordVisibility;
+  final _confirmPasswordController = TextEditingController();
+  final _form = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
+    _usernameController.addListener(() {
+      console.log(_usernameController.text);
+    });
     _emailController.addListener(() {
       console.log(_emailController.text);
+    });
+    _dobController.addListener(() {
+      console.log(_dobController.text);
     });
     _passwordController.addListener(() {
       console.log(_passwordController.text);
     });
-    _passwordVisibility = false;
+    _confirmPasswordController.addListener(() {
+      console.log(_confirmPasswordController.text);
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
+    _usernameController.dispose();
     _emailController.dispose();
+    _dobController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
   }
 
   @override
@@ -149,7 +157,7 @@ class _LoginFormState extends State<LoginForm> {
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Text(
-                    'Login',
+                    'Register',
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w100,
@@ -164,6 +172,26 @@ class _LoginFormState extends State<LoginForm> {
                       //     ],
                       //   ),
                     ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(4.0),
+                  child: TextFormField(
+                    controller: _usernameController,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
+                    decoration: InputDecoration(
+                      icon: Icon(Icons.person),
+                      iconColor: Colors.white,
+                      hintText: "Enter Your Name",
+                      hintStyle: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    keyboardType: TextInputType.text, 
                   ),
                 ),
                 Container(
@@ -189,60 +217,82 @@ class _LoginFormState extends State<LoginForm> {
                 Container(
                   padding: EdgeInsets.all(4.0),
                   child: TextFormField(
-                    controller: _passwordController,
+                    controller: _dobController,
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
                     ),
                     decoration: InputDecoration(
-                      icon: Icon(Icons.password),
+                      icon: Icon(Icons.date_range),
                       iconColor: Colors.white,
-                      hintText: "Enter Your Password",
+                      hintText: "Enter Your Date Of Birth",
                       hintStyle: TextStyle(
                         fontSize: 20,
                         color: Colors.white,
                       ),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _passwordVisibility = !_passwordVisibility;
-                          });
-                        },
-                        icon: Icon(
-                          _passwordVisibility
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                        ),
-                      ),
-                      suffixIconColor: Colors.white,
                     ),
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: !_passwordVisibility,
+                    keyboardType: TextInputType.datetime, 
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Color(0xFF0083D4),
-                          // shadows: [
-                          //   Shadow(
-                          //     color: Colors.black12,
-                          //     offset: Offset.fromDirection(2),
-                          //     blurRadius: 2.0
-                          //   ),
-                          // ]
+                Form(
+                  key: _form,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          controller: _passwordController,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                          decoration: InputDecoration(
+                            icon: Icon(Icons.password),
+                            iconColor: Colors.white,
+                            hintText: "Enter Your Password",
+                            hintStyle: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: true,
                         ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        padding: EdgeInsets.all(4.0),
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) return 'Empty';
+                            if (value != _passwordController.text) {
+                              return 'Password does not match';
+                            }
+                            return null;
+                          },
+                          controller: _confirmPasswordController,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                          decoration: InputDecoration(
+                            icon: Icon(Icons.password),
+                            iconColor: Colors.white,
+                            hintText: "Confirm Your Password",
+                            hintStyle: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: true,
+                        ),
+                      ),
+                    ],
+                  )
                 ),
-                LoginButton(onPressed: () {},),
+                SignUpButton(onPressed: () {
+                  _form.currentState!.validate();
+                },),
               ],
             ),
           ),
@@ -252,8 +302,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 }
 
-class LoginButton extends StatelessWidget {
-  const LoginButton({
+class SignUpButton extends StatelessWidget {
+  const SignUpButton({
     super.key,
     required this.onPressed,
   });
@@ -281,7 +331,7 @@ class LoginButton extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            'SIGN IN',
+            'SIGN UP',
             style: TextStyle(
               fontSize: 24,
             ),
