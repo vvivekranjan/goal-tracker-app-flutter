@@ -66,7 +66,7 @@ class Login extends StatelessWidget {
                             'Register here',
                             style: TextStyle(
                               fontSize: 18,
-                              color: Colors.blue,
+                              color: Color(0xFF0083D4),
                             ),
                           ),
                         ),
@@ -228,7 +228,7 @@ class _LoginFormState extends State<LoginForm> {
                         'Forgot Password?',
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.blue,
+                          color: Color(0xFF0083D4),
                           // shadows: [
                           //   Shadow(
                           //     color: Colors.black12,
