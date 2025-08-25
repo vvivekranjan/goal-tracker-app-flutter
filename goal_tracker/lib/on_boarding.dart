@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:goal_tracker/authentication/login.dart';
 
 class OnBoarding extends StatelessWidget {
   const OnBoarding({super.key});
@@ -19,10 +20,7 @@ class OnBoarding extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
-            colors: [
-              Color(0xFF53D8FB),
-              Color(0xFFB844D4),
-            ],
+            colors: [Color(0xFF53D8FB), Color(0xFFB844D4)],
           ),
         ),
         child: SafeArea(
@@ -44,21 +42,28 @@ class OnBoarding extends StatelessWidget {
                             fontWeight: FontWeight.w100,
                             // foreground: Paint()
                             //   ..shader = ui.Gradient.linear(
-                            //     const Offset(0, 20), 
+                            //     const Offset(0, 20),
                             //     const Offset(150, 20),
                             //     <Color>[
                             //       Color(0xFFDDD5D0),
                             //       Color(0xFF466365),
                             //     ],
                             //   )
-                            color: Color(0xFFFFFFFF)
+                            color: Color(0xFFFFFFFF),
                           ),
                         ),
                       ),
-                      const Expanded(
-                        child: CarouselSliderController(),
+                      const Expanded(child: CarouselSliderController()),
+                      OnBoardingButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Login(),
+                            ),
+                          );
+                        },
                       ),
-                      OnBoardingButton(onPressed: () {}),
                     ],
                   );
                 } else {
@@ -68,7 +73,7 @@ class OnBoarding extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Padding(
-                          padding: EdgeInsets.all(8),
+                          padding: EdgeInsets.all(8.0),
                           child: Text(
                             'Goal Tracker',
                             style: TextStyle(
@@ -82,13 +87,20 @@ class OnBoarding extends StatelessWidget {
                         const CarouselSliderController(),
                         const SizedBox(height: 20),
                         OnBoardingButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Login(),
+                              ),
+                            );
+                          }
                         ),
                       ],
                     ),
                   );
                 }
-              }
+              },
             ),
           ),
         ),
@@ -98,10 +110,7 @@ class OnBoarding extends StatelessWidget {
 }
 
 class OnBoardingButton extends StatelessWidget {
-  const OnBoardingButton({
-    super.key,
-    required this.onPressed,
-  });
+  const OnBoardingButton({super.key, required this.onPressed});
 
   final VoidCallback onPressed;
 
@@ -109,27 +118,21 @@ class OnBoardingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
-      child: Container(
-        padding: EdgeInsets.all(12),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: Color(0x66000000),
-          borderRadius: BorderRadius.circular(50)
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(50),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-            child: Container(
-              color: Colors.white.withValues(alpha: 0.0),
-              child: Text(
-                'Get Started',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white
-                ),
-              ),
-            )
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(50),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: const Color(0x66000000),
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: Text(
+              'Get Started',
+              style: TextStyle(fontSize: 24, color: Colors.white),
+            ),
           ),
         ),
       ),
@@ -141,16 +144,20 @@ class CarouselSliderController extends StatefulWidget {
   const CarouselSliderController({super.key});
 
   @override
-  State<CarouselSliderController> createState() => _CarouselSliderControllerState();
+  State<CarouselSliderController> createState() =>
+      _CarouselSliderControllerState();
 }
 
 class _CarouselSliderControllerState extends State<CarouselSliderController> {
-
   final Map<String, String> carouselData = {
-    'assets/pin_your_goals.svg': 'Pin your goals and track your progress. Let\'s start achieving them.',
-    'assets/schedule.svg': 'Plan your tasks. Stay organized to reach your destination faster.',
-    'assets/book_lover.svg': 'Read, learn, and grow. Your personal development is our priority.',
-    'assets/visualize_success.svg': 'Visualize your success. See your progress with insightful data.',
+    'assets/pin_your_goals.svg':
+        'Pin your goals and track your progress. Let\'s start achieving them.',
+    'assets/schedule.svg':
+        'Plan your tasks. Stay organized to reach your destination faster.',
+    'assets/book_lover.svg':
+        'Read, learn, and grow. Your personal development is our priority.',
+    'assets/visualize_success.svg':
+        'Visualize your success. See your progress with insightful data.',
   };
 
   int currentIndex = 0;
@@ -195,7 +202,9 @@ class _CarouselSliderControllerState extends State<CarouselSliderController> {
               activeColor: Color(0xFF7139FF),
               size: Size.square(9.0),
               activeSize: Size(18.0, 9.0),
-              activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
+              activeShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              ),
             ),
           ),
         ],
@@ -227,10 +236,7 @@ class CarouselSlides extends StatelessWidget {
           child: Text(
             caption,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 20,
-              color: Colors.white,
-            ),
+            style: const TextStyle(fontSize: 20, color: Colors.white),
           ),
         ),
       ],
