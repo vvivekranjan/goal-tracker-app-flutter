@@ -3,10 +3,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:goal_tracker/authentication/sign_up.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class SignUp extends StatelessWidget {
+  const SignUp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,25 +29,24 @@ class Login extends StatelessWidget {
           child: SafeArea(
             child: SingleChildScrollView(
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: SvgPicture.asset(
-                      'assets/login.svg',
+                      'assets/sign_up.svg',
                       height: 200,
                       fit: BoxFit.contain,
                     ),
                   ),
-                  LoginForm(),
+                  SignUpForm(),
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Not having an account?',
+                          'Already having an account?',
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.white,
@@ -56,15 +54,10 @@ class Login extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SignUp(),
-                              ),
-                            );
+                            Navigator.pop(context);
                           },
                           child: Text(
-                            'Register here',
+                            'Login here',
                             style: TextStyle(
                               fontSize: 18,
                               color: Color(0xFF0083D4),
@@ -84,36 +77,50 @@ class Login extends StatelessWidget {
   }
 }
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<SignUpForm> createState() => _SignUpFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _SignUpFormState extends State<SignUpForm> {
 
+  final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
+  final _dobController = TextEditingController();
   final _passwordController = TextEditingController();
-  late bool _passwordVisibility;
+  final _confirmPasswordController = TextEditingController();
+  final _form = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
+    _usernameController.addListener(() {
+      console.log(_usernameController.text);
+    });
     _emailController.addListener(() {
       console.log(_emailController.text);
+    });
+    _dobController.addListener(() {
+      console.log(_dobController.text);
     });
     _passwordController.addListener(() {
       console.log(_passwordController.text);
     });
-    _passwordVisibility = false;
+    _confirmPasswordController.addListener(() {
+      console.log(_confirmPasswordController.text);
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
+    _usernameController.dispose();
     _emailController.dispose();
+    _dobController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
   }
 
   @override
@@ -126,15 +133,6 @@ class _LoginFormState extends State<LoginForm> {
         ),
         borderRadius: BorderRadius.circular(20),
         color: Color(0x20000000),
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: Colors.deepPurpleAccent,
-        //     blurRadius: 5.0,
-        //     spreadRadius: 1.0,
-        //     blurStyle: BlurStyle.outer
-        //   ),
-        // ],
-        // backgroundBlendMode: BlendMode.color
       ),
       child: ClipRRect(
         borderRadius: BorderRadiusGeometry.circular(20),
@@ -149,100 +147,70 @@ class _LoginFormState extends State<LoginForm> {
                 Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Text(
-                    'Login',
+                    'Register',
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w100,
                       color: Color(0xFFFFFFFF),
-                      // foreground: Paint()
-                      //   ..shader = ui.Gradient.linear(
-                      //     const Offset(0, 20),
-                      //     const Offset(150, 20),
-                      //     const <Color>[
-                      //       Color(0xFFDDD5D0),
-                      //       Color(0xFF8D44D4),
-                      //     ],
-                      //   ),
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(4.0),
-                  child: TextFormField(
-                    controller: _emailController,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.email),
-                      iconColor: Colors.white,
-                      hintText: "Enter Your Email",
-                      hintStyle: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                    keyboardType: TextInputType.emailAddress, 
-                  ),
+                FormTextField(
+                  controller: _usernameController,
+                  icon: Icon(Icons.person),
+                  hintText: "Enter your Name",
+                  type: TextInputType.text,
+                  obscureText: false,
+                  validator: null,
                 ),
-                Container(
-                  padding: EdgeInsets.all(4.0),
-                  child: TextFormField(
-                    controller: _passwordController,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.password),
-                      iconColor: Colors.white,
-                      hintText: "Enter Your Password",
-                      hintStyle: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
+                FormTextField(
+                  controller: _emailController,
+                  icon: Icon(Icons.email),
+                  hintText: "Enter your Email",
+                  type: TextInputType.emailAddress,
+                  obscureText: false,
+                  validator: null,
+                ),
+                FormTextField(
+                  controller: _dobController,
+                  icon: Icon(Icons.date_range),
+                  hintText: "DD/MM/YYYY",
+                  type: TextInputType.datetime,
+                  obscureText: false,
+                  validator: null,
+                ),
+                Form(
+                  key: _form,
+                  child: Column(
+                    children: <Widget>[
+                      FormTextField(
+                        controller: _passwordController,
+                        icon: Icon(Icons.password),
+                        hintText: "Enter your Password",
+                        type: TextInputType.visiblePassword,
+                        obscureText: true,
+                        validator: null,
                       ),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _passwordVisibility = !_passwordVisibility;
-                          });
+                      FormTextField(
+                        controller: _confirmPasswordController,
+                        icon: Icon(Icons.password),
+                        hintText: "Confirm Your Password",
+                        type: TextInputType.visiblePassword,
+                        obscureText: true,
+                        validator: (value) {
+                          if (value!.isEmpty) return 'Empty';
+                          if (value != _passwordController.text) {
+                            return 'Password does not match';
+                          }
+                          return null;
                         },
-                        icon: Icon(
-                          _passwordVisibility
-                          ? Icons.visibility
-                          : Icons.visibility_off,
-                        ),
-                      ),
-                      suffixIconColor: Colors.white,
-                    ),
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: !_passwordVisibility,
-                  ),
+                      )
+                    ],
+                  )
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Color(0xFF0083D4),
-                          // shadows: [
-                          //   Shadow(
-                          //     color: Colors.black12,
-                          //     offset: Offset.fromDirection(2),
-                          //     blurRadius: 2.0
-                          //   ),
-                          // ]
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                LoginButton(onPressed: () {},),
+                SignUpButton(onPressed: () {
+                  _form.currentState!.validate();
+                }),
               ],
             ),
           ),
@@ -252,8 +220,59 @@ class _LoginFormState extends State<LoginForm> {
   }
 }
 
-class LoginButton extends StatelessWidget {
-  const LoginButton({
+class FormTextField extends StatefulWidget {
+  const FormTextField({
+    super.key,
+    required this.controller,
+    required this.icon,
+    required this.hintText,
+    required this.type,
+    required this.obscureText,
+    required this.validator,
+  });
+
+  final TextEditingController controller;
+  final Icon icon;
+  final String hintText;
+  final TextInputType type;
+  final bool obscureText;
+  final String? Function(String?)? validator;
+
+  @override
+  State<FormTextField> createState() => _FormTextFieldState();
+}
+
+class _FormTextFieldState extends State<FormTextField> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(4.0),
+      child: TextFormField(
+        controller: widget.controller,
+        validator: widget.validator,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        style: TextStyle(
+          fontSize: 20,
+          color: Colors.white,
+        ),
+        decoration: InputDecoration(
+          icon: widget.icon,
+          iconColor: Colors.white,
+          hintText: widget.hintText,
+          hintStyle: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+        keyboardType: widget.type,
+        obscureText: widget.obscureText,
+      ),
+    );
+  }
+}
+
+class SignUpButton extends StatelessWidget {
+  const SignUpButton({
     super.key,
     required this.onPressed,
   });
@@ -281,7 +300,7 @@ class LoginButton extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            'SIGN IN',
+            'SIGN UP',
             style: TextStyle(
               fontSize: 24,
             ),
