@@ -29,7 +29,6 @@ class SignUp extends StatelessWidget {
           child: SafeArea(
             child: SingleChildScrollView(
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
@@ -134,15 +133,6 @@ class _SignUpFormState extends State<SignUpForm> {
         ),
         borderRadius: BorderRadius.circular(20),
         color: Color(0x20000000),
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: Colors.deepPurpleAccent,
-        //     blurRadius: 5.0,
-        //     spreadRadius: 1.0,
-        //     blurStyle: BlurStyle.outer
-        //   ),
-        // ],
-        // backgroundBlendMode: BlendMode.color
       ),
       child: ClipRRect(
         borderRadius: BorderRadiusGeometry.circular(20),
@@ -162,141 +152,120 @@ class _SignUpFormState extends State<SignUpForm> {
                       fontSize: 30,
                       fontWeight: FontWeight.w100,
                       color: Color(0xFFFFFFFF),
-                      // foreground: Paint()
-                      //   ..shader = ui.Gradient.linear(
-                      //     const Offset(0, 20),
-                      //     const Offset(150, 20),
-                      //     const <Color>[
-                      //       Color(0xFFDDD5D0),
-                      //       Color(0xFF8D44D4),
-                      //     ],
-                      //   ),
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(4.0),
-                  child: TextFormField(
-                    controller: _usernameController,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.person),
-                      iconColor: Colors.white,
-                      hintText: "Enter Your Name",
-                      hintStyle: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                    keyboardType: TextInputType.text, 
-                  ),
+                FormTextField(
+                  controller: _usernameController,
+                  icon: Icon(Icons.person),
+                  hintText: "Enter your Name",
+                  type: TextInputType.text,
+                  obscureText: false,
+                  validator: null,
                 ),
-                Container(
-                  padding: EdgeInsets.all(4.0),
-                  child: TextFormField(
-                    controller: _emailController,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.email),
-                      iconColor: Colors.white,
-                      hintText: "Enter Your Email",
-                      hintStyle: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                    keyboardType: TextInputType.emailAddress, 
-                  ),
+                FormTextField(
+                  controller: _emailController,
+                  icon: Icon(Icons.email),
+                  hintText: "Enter your Email",
+                  type: TextInputType.emailAddress,
+                  obscureText: false,
+                  validator: null,
                 ),
-                Container(
-                  padding: EdgeInsets.all(4.0),
-                  child: TextFormField(
-                    controller: _dobController,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),
-                    decoration: InputDecoration(
-                      icon: Icon(Icons.date_range),
-                      iconColor: Colors.white,
-                      hintText: "Enter Your Date Of Birth",
-                      hintStyle: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                    keyboardType: TextInputType.datetime, 
-                  ),
+                FormTextField(
+                  controller: _dobController,
+                  icon: Icon(Icons.date_range),
+                  hintText: "DD/MM/YYYY",
+                  type: TextInputType.datetime,
+                  obscureText: false,
+                  validator: null,
                 ),
                 Form(
                   key: _form,
                   child: Column(
                     children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.all(4.0),
-                        child: TextFormField(
-                          controller: _passwordController,
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                          decoration: InputDecoration(
-                            icon: Icon(Icons.password),
-                            iconColor: Colors.white,
-                            hintText: "Enter Your Password",
-                            hintStyle: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                          ),
-                          keyboardType: TextInputType.visiblePassword,
-                          obscureText: true,
-                        ),
+                      FormTextField(
+                        controller: _passwordController,
+                        icon: Icon(Icons.password),
+                        hintText: "Enter your Password",
+                        type: TextInputType.visiblePassword,
+                        obscureText: true,
+                        validator: null,
                       ),
-                      Container(
-                        padding: EdgeInsets.all(4.0),
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) return 'Empty';
-                            if (value != _passwordController.text) {
-                              return 'Password does not match';
-                            }
-                            return null;
-                          },
-                          controller: _confirmPasswordController,
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                          decoration: InputDecoration(
-                            icon: Icon(Icons.password),
-                            iconColor: Colors.white,
-                            hintText: "Confirm Your Password",
-                            hintStyle: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                          ),
-                          keyboardType: TextInputType.visiblePassword,
-                          obscureText: true,
-                        ),
-                      ),
+                      FormTextField(
+                        controller: _confirmPasswordController,
+                        icon: Icon(Icons.password),
+                        hintText: "Confirm Your Password",
+                        type: TextInputType.visiblePassword,
+                        obscureText: true,
+                        validator: (value) {
+                          if (value!.isEmpty) return 'Empty';
+                          if (value != _passwordController.text) {
+                            return 'Password does not match';
+                          }
+                          return null;
+                        },
+                      )
                     ],
                   )
                 ),
                 SignUpButton(onPressed: () {
                   _form.currentState!.validate();
-                },),
+                }),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class FormTextField extends StatefulWidget {
+  const FormTextField({
+    super.key,
+    required this.controller,
+    required this.icon,
+    required this.hintText,
+    required this.type,
+    required this.obscureText,
+    required this.validator,
+  });
+
+  final TextEditingController controller;
+  final Icon icon;
+  final String hintText;
+  final TextInputType type;
+  final bool obscureText;
+  final String? Function(String?)? validator;
+
+  @override
+  State<FormTextField> createState() => _FormTextFieldState();
+}
+
+class _FormTextFieldState extends State<FormTextField> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(4.0),
+      child: TextFormField(
+        controller: widget.controller,
+        validator: widget.validator,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        style: TextStyle(
+          fontSize: 20,
+          color: Colors.white,
+        ),
+        decoration: InputDecoration(
+          icon: widget.icon,
+          iconColor: Colors.white,
+          hintText: widget.hintText,
+          hintStyle: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
+        keyboardType: widget.type,
+        obscureText: widget.obscureText,
       ),
     );
   }
