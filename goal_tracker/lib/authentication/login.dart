@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:goal_tracker/authentication/sign_up.dart';
+import 'package:goal_tracker/home_screen.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -242,7 +243,14 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   ],
                 ),
-                LoginButton(onPressed: () {},),
+                LoginButton(onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeScreen(),
+                    ),
+                  );
+                }),
               ],
             ),
           ),
