@@ -20,12 +20,12 @@ class GoalsData {
 }
 
 List<GoalsData> goalsData = [
-  GoalsData(goalId: 001, name: 'Do Yoga', endDate: DateTime(2025), progressValue: 24, icon: 'https://imgs.search.brave.com/jCHofzoU70xf5Coj1nPjSh11j1XjMfLXFXAPpA6AZnU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxNS8w/Ny8yNy8xNy8xNC9t/b3VudGFpbnMtODYy/ODcwXzY0MC5qcGc'),
-  GoalsData(goalId: 002, name: 'Do Coding', endDate: DateTime(2025), progressValue: 56, icon: 'https://imgs.search.brave.com/jCHofzoU70xf5Coj1nPjSh11j1XjMfLXFXAPpA6AZnU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxNS8w/Ny8yNy8xNy8xNC9t/b3VudGFpbnMtODYy/ODcwXzY0MC5qcGc'),
-  GoalsData(goalId: 003, name: 'Make Project', endDate: DateTime(2025), progressValue: 88, icon: 'https://imgs.search.brave.com/jCHofzoU70xf5Coj1nPjSh11j1XjMfLXFXAPpA6AZnU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxNS8w/Ny8yNy8xNy8xNC9t/b3VudGFpbnMtODYy/ODcwXzY0MC5qcGc'),
+  GoalsData(goalId: 001, name: 'Do Yoga', endDate: DateTime(2025), progressValue: 24, icon: 'https://imgs.search.brave.com/Z1UZlRBlAXbY1YD6TGLQkESc8cZ6JuEQBpKw2OmomF4/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tYXJr/ZXRwbGFjZS5jYW52/YS5jb20veUFZeTQv/TUFGbHNLeUFZeTQv/MS90bC9jYW52YS15/b2dhLWlsbHVzdHJh/dGlvbi1NQUZsc0t5/QVl5NC5wbmc'),
+  GoalsData(goalId: 002, name: 'Do Coding', endDate: DateTime(2025), progressValue: 56, icon: 'https://imgs.search.brave.com/keASzh1tcuIR2Hf8kpmQ7rmSJ8O4lUIQ5L7MwSIALCc/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAyNC8w/NS8yMC8xMy8yOC9h/aS1nZW5lcmF0ZWQt/ODc3NTIzM182NDAu/cG5n'),
+  GoalsData(goalId: 003, name: 'Make Project', endDate: DateTime(2025), progressValue: 88),
   GoalsData(goalId: 004, name: 'Learn Gen AI', endDate: DateTime(2025), progressValue: 66, icon: 'https://imgs.search.brave.com/jCHofzoU70xf5Coj1nPjSh11j1XjMfLXFXAPpA6AZnU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxNS8w/Ny8yNy8xNy8xNC9t/b3VudGFpbnMtODYy/ODcwXzY0MC5qcGc'),
-  GoalsData(goalId: 005, name: 'Hit the GYM', endDate: DateTime(2025), progressValue: 13, icon: 'https://imgs.search.brave.com/jCHofzoU70xf5Coj1nPjSh11j1XjMfLXFXAPpA6AZnU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxNS8w/Ny8yNy8xNy8xNC9t/b3VudGFpbnMtODYy/ODcwXzY0MC5qcGc'),
-  GoalsData(goalId: 006, name: 'Eat Healthy', endDate: DateTime(2025), progressValue: 80, icon: 'https://imgs.search.brave.com/jCHofzoU70xf5Coj1nPjSh11j1XjMfLXFXAPpA6AZnU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxNS8w/Ny8yNy8xNy8xNC9t/b3VudGFpbnMtODYy/ODcwXzY0MC5qcGc'),
+  GoalsData(goalId: 005, name: 'Hit the GYM', endDate: DateTime(2025), progressValue: 13, icon: 'https://imgs.search.brave.com/0mP2t40k8mszAVAYcJ1hNjpSwx5ga6Qd0E0WvHabMXY/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzL2JmLzFk/LzFmL2JmMWQxZmE3/YTcwYjZmZWQxZTg3/ZGU4YTJjMmVmMDhl/LmpwZw'),
+  GoalsData(goalId: 006, name: 'Eat Healthy', endDate: DateTime(2025), progressValue: 80, icon: 'https://imgs.search.brave.com/_VF1hIgTiMG7dEUKusjZhirFcc9I3t24Gs-Ha_L2IpY/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzlmL2I2/L2Y0LzlmYjZmNDQ0/Yjg3NmU0N2M3MDAz/YzUxYjM3MmJiZjQ2/LmpwZw'),
   GoalsData(goalId: 007, name: 'Get Good Sleep', endDate: DateTime(2025), progressValue: 52),
 ];
 
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           onPressed: () {},
                           icon: Icon(
                             Icons.add,
-                            size: 40,
+                            size: 36,
                             color: Colors.white,
                           )
                         ),
@@ -94,11 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: IconButton(
                           onPressed: () {},
                           icon: CircleAvatar(
-                            child: Icon(
-                              Icons.person,
-                              size: 40,
-                              color: Colors.white,
-                            ),
+                            maxRadius: 36,
+                            backgroundImage: NetworkImage('https://cdn-icons-png.flaticon.com/512/6858/6858504.png'),
                           )
                         ),
                       ),
