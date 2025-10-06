@@ -2,14 +2,14 @@ import 'dart:developer' as console;
 
 import 'package:flutter/material.dart';
 
-class ChangePassword extends StatefulWidget {
-  const ChangePassword({super.key});
+class ValidatePassword extends StatefulWidget {
+  const ValidatePassword({super.key});
 
   @override
-  State<ChangePassword> createState() => _ChangePasswordState();
+  State<ValidatePassword> createState() => _ValidatePasswordState();
 }
 
-class _ChangePasswordState extends State<ChangePassword> {
+class _ValidatePasswordState extends State<ValidatePassword> {
 
   final _passwordController = TextEditingController();
 

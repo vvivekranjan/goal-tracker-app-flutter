@@ -35,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ChangePassword())
+                      MaterialPageRoute(builder: (context) => ValidatePassword())
                     );
                   },
                 ),
