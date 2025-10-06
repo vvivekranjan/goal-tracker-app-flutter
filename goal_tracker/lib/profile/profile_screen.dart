@@ -28,9 +28,9 @@ class ProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                ProfileOptions(title: 'Edit Profile'),
-                ProfileOptions(title: 'Change Password'),
-                ProfileOptions(title: 'Delete Password'),
+                ProfileOptions(title: 'Edit Profile', onPressed: () {},),
+                ProfileOptions(title: 'Change Password', onPressed: () {},),
+                ProfileOptions(title: 'Delete Account', onPressed: () {},),
               ],
             ),
           ),
@@ -41,9 +41,14 @@ class ProfileScreen extends StatelessWidget {
 }
 
 class ProfileOptions extends StatelessWidget {
-  const ProfileOptions({super.key, required this.title});
+  const ProfileOptions({
+    super.key,
+    required this.title,
+    required this.onPressed,
+    });
 
   final String title;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +70,7 @@ class ProfileOptions extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: onPressed,
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: const Icon(
