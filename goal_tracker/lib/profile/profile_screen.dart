@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:goal_tracker/change_password.dart';
+import 'package:goal_tracker/validate_password.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
