@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goal_tracker/change_password.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -29,7 +30,15 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               children: [
                 ProfileOptions(title: 'Edit Profile', onPressed: () {},),
-                ProfileOptions(title: 'Change Password', onPressed: () {},),
+                ProfileOptions(
+                  title: 'Change Password',
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ChangePassword())
+                    );
+                  },
+                ),
                 ProfileOptions(title: 'Delete Account', onPressed: () {},),
               ],
             ),
