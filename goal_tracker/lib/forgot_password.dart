@@ -2,6 +2,7 @@ import 'dart:developer' as console;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ForgotPassword extends StatelessWidget {
   const ForgotPassword({super.key});
@@ -28,11 +29,20 @@ class ForgotPassword extends StatelessWidget {
         ),
         child: SafeArea(
           minimum: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ForgotForm()
-            ]
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SvgPicture.asset(
+                    'assets/forgot_password.svg',
+                    height: 200,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                ForgotForm()
+              ]
+            ),
           ),
         ),
       ),
