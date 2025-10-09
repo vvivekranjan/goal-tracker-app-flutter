@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:goal_tracker/authentication/sign_up.dart';
+import 'package:goal_tracker/forgot_password.dart';
 import 'package:goal_tracker/home_screen.dart';
 
 class Login extends StatelessWidget {
@@ -225,7 +226,14 @@ class _LoginFormState extends State<LoginForm> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ForgotPassword(),
+                          ),
+                        );
+                      },
                       child: Text(
                         'Forgot Password?',
                         style: TextStyle(
