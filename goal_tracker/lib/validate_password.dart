@@ -1,6 +1,8 @@
 import 'dart:developer' as console;
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ValidatePassword extends StatefulWidget {
   const ValidatePassword({super.key});
@@ -50,31 +52,75 @@ class _ValidatePasswordState extends State<ValidatePassword> {
         child: SafeArea(
           minimum: EdgeInsets.all(8.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Text(
-                      'Current Password',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                    FormTextField(
-                      controller: _passwordController,
-                      type: TextInputType.visiblePassword,
-                      obscureText: true,
-                    ),
-                  ],
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: SvgPicture.asset(
+                    'assets/validate_password.svg',
+                    height: 200,
+                    fit: BoxFit.contain,
+                  ),
                 ),
-              ),
-              ValidateButton(
-                onPressed: () {},
-              ),
-            ],
+                ValidationForm()
+              ]
+            ),
+        ),
+      ),
+    );
+  }
+}
+
+class ValidationForm extends StatefulWidget {
+  const ValidationForm({super.key});
+
+  @override
+  State<ValidationForm> createState() => _ValidationFormState();
+}
+
+class _ValidationFormState extends State<ValidationForm> {
+  final _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _passwordController.addListener(() {
+      console.log(_passwordController.text);
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _passwordController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: BoxBorder.all(color: Colors.black26, width: 1),
+        borderRadius: BorderRadius.circular(20),
+        color: Color(0x20000000),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadiusGeometry.circular(20),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                FormTextField(
+                  controller: _passwordController,
+                  icon: const Icon(Icons.password),
+                  hintText: "Enter your Current Password",
+                  type: TextInputType.visiblePassword,
+                ),
+                ValidateButton(onPressed: () {}),
+              ],
+            ),
           ),
         ),
       ),
@@ -86,13 +132,15 @@ class FormTextField extends StatefulWidget {
   const FormTextField({
     super.key,
     required this.controller,
+    required this.icon,
+    required this.hintText,
     required this.type,
-    required this.obscureText,
   });
 
   final TextEditingController controller;
+  final Icon icon;
+  final String hintText;
   final TextInputType type;
-  final bool obscureText;
 
   @override
   State<FormTextField> createState() => _FormTextFieldState();
@@ -102,16 +150,18 @@ class _FormTextFieldState extends State<FormTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(4.0),
       child: TextFormField(
         controller: widget.controller,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        style: TextStyle(
-          fontSize: 20,
-          color: Colors.white,
+        style: TextStyle(fontSize: 20, color: Colors.white),
+        decoration: InputDecoration(
+          icon: widget.icon,
+          iconColor: Colors.white,
+          hintText: widget.hintText,
+          hintStyle: TextStyle(fontSize: 20, color: Colors.white),
         ),
         keyboardType: widget.type,
-        obscureText: widget.obscureText,
       ),
     );
   }
