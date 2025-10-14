@@ -29,20 +29,12 @@ class NewPassword extends StatelessWidget {
         ),
         child: SafeArea(
           minimum: EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: SvgPicture.asset(
-                      'assets/validate_password.svg',
-                      height: 200,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  NewForm()
-                ]
-              ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              NewForm(),
+            ],
           ),
         ),
       ),
