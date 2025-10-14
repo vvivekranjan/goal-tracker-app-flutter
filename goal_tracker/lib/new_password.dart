@@ -1,12 +1,11 @@
-import 'dart:developer' as console;
+import 'dart:math' as console;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:goal_tracker/new_password.dart';
 
-class ForgotPassword extends StatelessWidget {
-  const ForgotPassword({super.key});
+class NewPassword extends StatelessWidget {
+  const NewPassword({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class ForgotPassword extends StatelessWidget {
       appBar: AppBar(
         foregroundColor: Colors.white,
         backgroundColor: Colors.transparent,
-        title: const Text('Forgot Password', style: TextStyle(fontSize: 28)),
+        title: const Text('New Password', style: TextStyle(fontSize: 28)),
       ),
       body: Container(
         width: double.infinity,
@@ -29,21 +28,21 @@ class ForgotPassword extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          minimum: const EdgeInsets.all(16.0),
+          minimum: EdgeInsets.all(8.0),
           child: SingleChildScrollView(
             child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: SvgPicture.asset(
-                    'assets/forgot_password.svg',
-                    height: 200,
-                    fit: BoxFit.contain,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: SvgPicture.asset(
+                      'assets/validate_password.svg',
+                      height: 200,
+                      fit: BoxFit.contain,
+                    ),
                   ),
-                ),
-                ForgotForm(),
-              ],
-            ),
+                  NewForm()
+                ]
+              ),
           ),
         ),
       ),
@@ -51,33 +50,32 @@ class ForgotPassword extends StatelessWidget {
   }
 }
 
-class ForgotForm extends StatefulWidget {
-  const ForgotForm({super.key});
+class NewForm extends StatefulWidget {
+  const NewForm({super.key});
 
   @override
-  State<ForgotForm> createState() => _ForgotFormState();
+  State<NewForm> createState() => _NewFormState();
 }
 
-class _ForgotFormState extends State<ForgotForm> {
-  final _emailController = TextEditingController();
-  final _dobController = TextEditingController();
+class _NewFormState extends State<NewForm> {
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final _form = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    _emailController.addListener(() {
-      console.log(_emailController.text);
+    _passwordController.addListener(() {
     });
-    _dobController.addListener(() {
-      console.log(_dobController.text);
+    _confirmPasswordController.addListener(() {
     });
   }
 
   @override
   void dispose() {
     super.dispose();
-    _emailController.dispose();
-    _dobController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
   }
 
   @override
@@ -94,31 +92,37 @@ class _ForgotFormState extends State<ForgotForm> {
           filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                FormTextField(
-                  controller: _emailController,
-                  icon: const Icon(Icons.email),
-                  hintText: "Enter your Email",
-                  type: TextInputType.emailAddress,
-                ),
-                FormTextField(
-                  controller: _dobController,
-                  icon: const Icon(Icons.date_range),
-                  hintText: "DD/MM/YYYY",
-                  type: TextInputType.datetime,
-                ),
-                ForgotButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => NewPassword()),
-                    );
-                  },
-                ),
-              ],
+            child: Form(
+              key: _form,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  FormTextField(
+                    controller: _passwordController,
+                    icon: Icon(Icons.password),
+                    hintText: "Enter your Password",
+                    type: TextInputType.visiblePassword,
+                    obscureText: true,
+                    validator: null,
+                  ),
+                  FormTextField(
+                    controller: _confirmPasswordController,
+                    icon: Icon(Icons.password),
+                    hintText: "Confirm Your Password",
+                    type: TextInputType.visiblePassword,
+                    obscureText: true,
+                    validator: (value) {
+                      if (value!.isEmpty) return 'Empty';
+                      if (value != _passwordController.text) {
+                        return 'Password does not match';
+                      }
+                      return null;
+                    },
+                  ),
+                  NewButton(onPressed: () {}),
+                ],
+              ),
             ),
           ),
         ),
@@ -134,12 +138,16 @@ class FormTextField extends StatefulWidget {
     required this.icon,
     required this.hintText,
     required this.type,
+    required this.obscureText,
+    required this.validator,
   });
 
   final TextEditingController controller;
   final Icon icon;
   final String hintText;
   final TextInputType type;
+  final bool obscureText;
+  final String? Function(String?)? validator;
 
   @override
   State<FormTextField> createState() => _FormTextFieldState();
@@ -161,13 +169,15 @@ class _FormTextFieldState extends State<FormTextField> {
           hintStyle: TextStyle(fontSize: 20, color: Colors.white),
         ),
         keyboardType: widget.type,
+        obscureText: widget.obscureText,
+        validator: widget.validator,
       ),
     );
   }
 }
 
-class ForgotButton extends StatelessWidget {
-  const ForgotButton({super.key, required this.onPressed});
+class NewButton extends StatelessWidget {
+  const NewButton({super.key, required this.onPressed});
 
   final VoidCallback onPressed;
 
