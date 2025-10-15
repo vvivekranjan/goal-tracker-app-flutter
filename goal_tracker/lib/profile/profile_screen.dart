@@ -39,7 +39,14 @@ class ProfileScreen extends StatelessWidget {
                     );
                   },
                 ),
-                ProfileOptions(title: 'Delete Account', onPressed: () {},),
+                ProfileOptions(title: 'Delete Account', onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return DeletePopScreen();
+                    }
+                  );
+                }),
               ],
             ),
           ),
@@ -93,6 +100,79 @@ class ProfileOptions extends StatelessWidget {
         ),
         Divider(color: Colors.white),
       ],
+    );
+  }
+}
+
+class DeletePopScreen extends StatefulWidget {
+  const DeletePopScreen({super.key});
+
+  @override
+  State<DeletePopScreen> createState() => _DeletePopScreenState();
+}
+
+class _DeletePopScreenState extends State<DeletePopScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      constraints: BoxConstraints.tightForFinite(height: 250),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Are you sure you want to delete your account?',
+              style: TextStyle(
+                color: Colors.red,
+              ),
+            ),
+            SizedBox(height: 10,),
+            Text(
+              'Type \"DELETE\" in the box'
+            ),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder()
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all<Color>(Colors.redAccent),
+                    ),
+                    child: Text(
+                      'YES',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {Navigator.pop(context);},
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStateProperty.all<Color>(Colors.blueAccent),
+                    ),
+                    child: Text(
+                      'NO',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
