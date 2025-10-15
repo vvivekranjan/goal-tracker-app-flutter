@@ -3,31 +3,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:goal_tracker/new_password.dart';
 
-class ValidatePassword extends StatefulWidget {
+class ValidatePassword extends StatelessWidget {
   const ValidatePassword({super.key});
-
-  @override
-  State<ValidatePassword> createState() => _ValidatePasswordState();
-}
-
-class _ValidatePasswordState extends State<ValidatePassword> {
-
-  final _passwordController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _passwordController.addListener(() {
-      console.log(_passwordController.text);
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _passwordController.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +30,8 @@ class _ValidatePasswordState extends State<ValidatePassword> {
         ),
         child: SafeArea(
           minimum: EdgeInsets.all(8.0),
-          child: Column(
+          child: SingleChildScrollView(
+            child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -61,9 +41,10 @@ class _ValidatePasswordState extends State<ValidatePassword> {
                     fit: BoxFit.contain,
                   ),
                 ),
-                ValidationForm()
-              ]
+                ValidationForm(),
+              ],
             ),
+          ),
         ),
       ),
     );
@@ -118,7 +99,14 @@ class _ValidationFormState extends State<ValidationForm> {
                   hintText: "Enter your Current Password",
                   type: TextInputType.visiblePassword,
                 ),
-                ValidateButton(onPressed: () {}),
+                ValidateButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => NewPassword()),
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -168,10 +156,7 @@ class _FormTextFieldState extends State<FormTextField> {
 }
 
 class ValidateButton extends StatelessWidget {
-  const ValidateButton({
-    super.key,
-    required this.onPressed,
-  });
+  const ValidateButton({super.key, required this.onPressed});
 
   final VoidCallback onPressed;
 
@@ -184,24 +169,13 @@ class ValidateButton extends StatelessWidget {
         style: ButtonStyle(
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
-              borderRadius: BorderRadiusGeometry.circular(12)
+              borderRadius: BorderRadiusGeometry.circular(12),
             ),
           ),
-          foregroundColor: WidgetStateProperty.all<Color>(
-            Colors.white,
-          ),
-          backgroundColor: WidgetStateProperty.all<Color>(
-            Color(0xFF8D44D4),
-          ),
+          foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+          backgroundColor: WidgetStateProperty.all<Color>(Color(0xFF8D44D4)),
         ),
-        child: Center(
-          child: Text(
-            'CHECK',
-            style: TextStyle(
-              fontSize: 24,
-            ),
-          ),
-        )
+        child: Center(child: Text('CHECK', style: TextStyle(fontSize: 24))),
       ),
     );
   }
