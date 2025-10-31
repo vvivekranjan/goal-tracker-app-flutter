@@ -1,8 +1,6 @@
-import 'dart:math' as console;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class NewPassword extends StatelessWidget {
   const NewPassword({super.key});

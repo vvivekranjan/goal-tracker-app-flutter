@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:goal_tracker/profile/edit_profile_screen.dart';
 import 'package:goal_tracker/validate_password.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -29,7 +30,15 @@ class ProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                ProfileOptions(title: 'Edit Profile', onPressed: () {},),
+                ProfileOptions(
+                  title: 'Edit Profile', 
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EditProfileScreen())
+                    );
+                  },
+                ),
                 ProfileOptions(
                   title: 'Change Password',
                   onPressed: () {
@@ -130,7 +139,7 @@ class _DeletePopScreenState extends State<DeletePopScreen> {
             ),
             SizedBox(height: 10,),
             Text(
-              'Type \"DELETE\" in the box'
+              'Type "DELETE" in the box'
             ),
             TextField(
               decoration: InputDecoration(
